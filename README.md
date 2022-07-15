@@ -25,4 +25,4 @@ It also includes the following sort algorithms:
 
 The following image is an example output result:
 
-![image](https://user-images.githubusercontent.com/60588691/179130855-a3d24431-0d9e-4fcf-8dbf-8e7752c02aa6.png)
+![image](https://user-images.githubusercontent.com/60588691/179145553-2087daa2-0cd3-4252-b7e6-38f2968ac528.png)
