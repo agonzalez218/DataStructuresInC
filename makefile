@@ -14,12 +14,13 @@ all:
 	@echo "**********************************************************"
 	@echo " "
 	@echo "Name: Abel Gonzalez"
-	@echo "Data Structures and Sort Algorithms in Cs"
+	@echo "Data Structures and Sort Algorithms in C"
 	@echo "Use make CDataStruct to create executable"
 	@echo "Use make RunCDataStruct to run executable"
 	@echo "Use make CleanCDataStruct to delete executable"
 	@echo " "
 	@echo "**********************************************************"
+	gcc -o main main.c BST.c LinkedList.c minheap.c queue.c set.c sort.c stack.c
 
 # creates the executable
 CDataStruct: main.c BST.c LinkedList.c minheap.c queue.c set.c sort.c stack.c

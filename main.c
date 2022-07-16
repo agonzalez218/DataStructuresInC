@@ -1,4 +1,6 @@
-#include <stdio.h>
+#include <stdio.h>  
+#include <stdlib.h>
+#include <time.h>
 #include "BST.h"
 #include "LinkedList.h"
 #include "minheap.h"
@@ -7,12 +9,20 @@
 #include "set.h"
 #include "sort.h"
 
+int *createArray();
+void generateTestData(int, int, int, int);
+
 int main(void) {
-  
-  int size = 6;
-  int nums[] = {1,65,4,6,65,64};
-  int origArray[] = {1,65,4,6,65,64};
-  printf("Array = {1,65,4,6,65,64}\nSize = 6\n\n");
+  int size;
+  generateTestData(20,1, 1000, 0);
+  int *nums = createArray(&size);
+  if( nums == NULL )
+  {
+    return 0;
+  }
+  printf("Array = ");
+  printArray( size, nums);
+  printf("Size = %d\n", size);
   printf("Binary Search Tree Results:\n");
   testBST(size, nums);
   printf("\n\nLinked List Results:\n");
@@ -25,16 +35,59 @@ int main(void) {
   testStack(size, nums);
   printf("\n\nSet Results:\n");
   testSet(size, nums);
-  int nums2[] = {1,65,4,6,65,64};
-  testSelectionSort( size, nums2 );
-  int nums3[] = {1,65,4,6,65,64};
-  testInsertionSort( size, nums3 );
-  int nums4[] = {1,65,4,6,65,64};
-  testBubbleSort( size, nums4 );
-  int nums5[] = {1,65,4,6,65,64};
-  testQuickSort(size, nums5 );
-  int nums6[] = {1,65,4,6,65,64};
-  testMergeSort(size, nums6 );
+  nums = createArray(&size);
+  testSelectionSort( size, nums );
+  nums = createArray(&size);
+  testInsertionSort( size, nums );
+  nums = createArray(&size);
+  testBubbleSort( size, nums );
+  nums = createArray(&size);
+  testQuickSort(size, nums );
+  nums = createArray(&size);
+  testMergeSort(size, nums );
   
   return 0;
+}
+
+int *createArray(int *size)
+{
+  FILE* file = fopen("array.txt", "r");
+  if( file == NULL )
+  {
+    return NULL;
+  }
+  char line[256];
+  char *val = fgets(line, sizeof(line), file);
+  if( val == NULL )
+  {
+    return NULL;
+  }
+  *size = atoi(line);
+  int i = 0;
+  int *nums = (int*)malloc(sizeof(int)**size);
+  while (fgets(line, sizeof(line), file)) {
+    nums[i] = atoi(line);
+    i++;
+  }
+  fclose(file);
+  return nums;
+}
+
+void generateTestData(int maxSize, int minSize, int maxNum, int minNum)
+{
+  FILE* file = fopen("array.txt", "w");
+  if( file == NULL )
+  {
+    return;
+  }
+  char line[256];
+  srand(time(0));
+  int size = rand() % (maxSize + 1 - minSize) + minSize;
+  int i = 0;
+  fprintf(file,"%d\n",size);
+  for(i = 0; i < size; i++)
+  {
+    fprintf(file,"%d\n",(rand() % (maxNum + 1 - minNum) + minNum));
+  }
+  fclose(file);
 }
